@@ -6,7 +6,7 @@
 
 访问Modrinth与Curseforge页面来获取进一步信息
 
-本mod开源免费，你可以在这里找到Github项目
+本mod开源免费，你可以在这里找到[Github项目](https://github.com/onixary/shape-shifter-curse-fabric)
 
 !!! note
 

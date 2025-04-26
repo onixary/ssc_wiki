@@ -9,7 +9,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 
 ### instinct值相关
 
-   这些power与action用于与instinct系统交互，用于增加或减少instinct值。具体值通过预定义的enum决定：
+这些power与action用于与instinct系统交互，用于增加或减少instinct值。具体值通过预定义的enum决定：
    
    ```json
    {
@@ -39,74 +39,74 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 
 #### add_sustained_instinct_in_time
       
-      在一定时间内增加或减少instinct的power，示例如下：
+在一定时间内增加或减少instinct的power，示例如下：
 
-      ```json
-      {
-        "type": "origins:add_sustained_instinct_in_time",
-        "instinct_effect_type": "FORM_AXOLOTL_EAT_FISH",
-        "duration": 20,
-        "is_on_item_finished": true,
-        "condition": {
-          "type": "origins:using_item",
-          "item_condition": {
+   ```json
+   {
+      "type": "origins:add_sustained_instinct_in_time",
+      "instinct_effect_type": "FORM_AXOLOTL_EAT_FISH",
+      "duration": 20,
+      "is_on_item_finished": true,
+      "condition": {
+         "type": "origins:using_item",
+         "item_condition": {
             "type": "origins:ingredient",
             "ingredient": {
-              "tag": "origins:fish"
+               "tag": "origins:fish"
             }
-          }
-        }
+         }
       }
-      ```
+   }
+   ```
 
 #### add_instinct
       
-      瞬时增加或减少instinct的action，只适用于立即效果的enum定义，示例如下：
+瞬时增加或减少instinct的action，只适用于立即效果的enum定义，示例如下：
 
-      ```json
-      {
-        "type": "origins:self_action_on_hit",
-        "entity_action": {
-          "type": "origins:add_instinct",
-          "instinct_effect_type": "FORM_OCELOT_ATTACK_LIVESTOCK"
-        },
-        "target_condition": {
-          "type": "origins:in_tag",
-          "tag": "origins:livestock"
-        }
+   ```json
+   {
+      "type": "origins:self_action_on_hit",
+      "entity_action": {
+      "type": "origins:add_instinct",
+         "instinct_effect_type": "FORM_OCELOT_ATTACK_LIVESTOCK"
+      },
+      "target_condition": {
+         "type": "origins:in_tag",
+         "tag": "origins:livestock"
       }
-      ```
-   一般而言，对于“阶段变化形态”的0和1阶段，定义金苹果与催化剂的add_sustained_instinct_in_time power是必要的。当然，你也可以随意定义自己的instinct物品
+   }
+   ```
+一般而言，对于“阶段变化形态”的0和1阶段，定义金苹果与催化剂的`add_sustained_instinct_in_time power`是必要的。当然，你也可以随意定义自己的instinct物品
    
 ---
 
 ### 角色缩放相关：
    
-   你可以通过`scale`power调整角色的尺寸缩放，这一缩放不会影响到形态的移动速度与跳跃高度等属性
+你可以通过`scale`power调整角色的尺寸缩放，这一缩放不会影响到形态的移动速度与跳跃高度等属性
    
-   每个形态都**必须**包含一个`scale`power，否则可能会在变化形态时出现尺寸错乱的情况
+每个形态都**必须**包含一个`scale`power，否则可能会在变化形态时出现尺寸错乱的情况
 
-   ```json
-   {
-     "type": "origins:scale",
-     "scale" : 1.0
-   }
-   ```
+```json
+{
+   "type": "origins:scale",
+   "scale" : 1.0
+}
+```
 
 ---
 
 ### 漂浮能力：
    
-   给与角色长按跳跃键时飞行一定高度与空中悬浮能力的power，`“continuous”`的值必须为`true`
+给与角色长按跳跃键时飞行一定高度与空中悬浮能力的power，`“continuous”`的值必须为`true`
 
-   ```json
-   {
-     "type": "origins:levitate",
-     "ascent_speed": 0.3,
-     "max_ascend_duration" : 30,
-     "key": {
-       "key": "key.jump",
-       "continuous": true
-     }
+```json
+{
+   "type": "origins:levitate",
+   "ascent_speed": 0.3,
+   "max_ascend_duration" : 30,
+   "key": {
+      "key": "key.jump",
+      "continuous": true
    }
-   ```
+}
+```

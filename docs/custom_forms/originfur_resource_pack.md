@@ -1,3 +1,5 @@
+# 基于Origin Furs数据驱动方式的自定义模型
+
 mod基于[Origin Furs](https://modrinth.com/mod/origin-furs)的逻辑来为不同形态实现自定义模型。形态模型应能够很容易地从其他Blockbench角色模型迁移过来
 
 要为特定形态添加自定义模型，请参考[Origin Furs文档](https://originalfur.readthedocs.io/en/latest/)以及源码中`3d_models`目录下的Blockbench项目文件

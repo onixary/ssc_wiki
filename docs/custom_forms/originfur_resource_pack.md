@@ -2,11 +2,12 @@ mod基于OriginFur的逻辑来为不同形态实现自定义模型。形态模�
 
 要为特定形态添加自定义模型，请参考[OriginFur文档](https://originalfur.readthedocs.io/en/latest/)以及源码中`3d_models`目录下的Blockbench项目文件
 
-（请无视模型中左右颠倒的命名。这可能是OriginFur本身的遗留问题，修复它会导致效果出错，所以..）
+!!! note
+
+    请无视模型中左右颠倒的命名。这可能是OriginFur本身的遗留问题，修复它会导致效果出错，所以..
 
 
-
-mod额外实现了用于尾部/飘带等的软骨骼以及动态翅膀。其也需要在OriginFur json文件中进行注册，示例如下：
+mod额外实现了用于尾部/飘带等的软骨骼以及动态翅膀。其也需要在json文件中进行注册，示例如下：
 
 ```json
 {

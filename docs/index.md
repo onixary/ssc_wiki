@@ -1,5 +1,3 @@
-{!README.md!}
-
 # 欢迎来到幻形者诅咒 Wiki文档
 
 **幻形者诅咒（Shape Shifter Curse）** 是为Fabric端开发的Minecraft java版模组

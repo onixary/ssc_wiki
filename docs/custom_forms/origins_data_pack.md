@@ -1,3 +1,5 @@
+# 基于Origins数据驱动方式的自定义形态能力
+
 mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形态的不同能力。换言之，每个形态都对应着Origins中的一个单独的origin
 
 要为自定义形态定义能力，请参考[Origins文档](https://origins.readthedocs.io/en/latest/)

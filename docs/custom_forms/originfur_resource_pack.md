@@ -1,10 +1,11 @@
-mod基于OriginFur的逻辑来为不同形态实现自定义模型。形态模型应能够很容易地从其他Blockbench角色模型迁移过来
+mod基于[Origin Furs](https://modrinth.com/mod/origin-furs)的逻辑来为不同形态实现自定义模型。形态模型应能够很容易地从其他Blockbench角色模型迁移过来
 
-要为特定形态添加自定义模型，请参考[OriginFur文档](https://originalfur.readthedocs.io/en/latest/)以及源码中`3d_models`目录下的Blockbench项目文件
+要为特定形态添加自定义模型，请参考[Origin Furs文档](https://originalfur.readthedocs.io/en/latest/)以及源码中`3d_models`目录下的Blockbench项目文件
 
 !!! note
 
-    请无视模型中左右颠倒的命名。这可能是OriginFur本身的遗留问题，修复它会导致效果出错，所以..
+    要导出形态模型，你需要安装`AzureLib Animator`插件，并在导出时选择`Export Azurelib.geo Model`
+    请无视模型中左右颠倒的命名。这可能是Origin Furs本身的遗留问题，修复它会导致效果出错，所以..
 
 
 mod额外实现了用于尾部/飘带等的软骨骼以及动态翅膀。其也需要在json文件中进行注册，示例如下：

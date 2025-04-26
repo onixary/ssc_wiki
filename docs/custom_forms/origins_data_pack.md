@@ -36,6 +36,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
        FORM_SUSTAINED_INSTINCT_FOOD(0.1f);
    }
    ```
+   
    1. **add_sustained_instinct_in_time**
       
       在一定时间内增加或减少instinct的power，示例如下：

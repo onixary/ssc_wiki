@@ -12,6 +12,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
    这些power与action用于与instinct系统交互，用于增加或减少instinct值。具体值通过预定义的enum决定：
    
    ```
+   {
        // 立即效果（值类型）
        FORM_OCELOT_ATTACK_LIVESTOCK(3.0f),
        // 供自定义形态使用的效果
@@ -38,6 +39,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
        FORM_SUSTAINED_INSTINCT_ENVIRONMENT_MEDIUM(0.004f),
        FORM_SUSTAINED_INSTINCT_ENVIRONMENT_LARGE(0.008f),
        FORM_SUSTAINED_INSTINCT_FOOD(0.1f);
+   }
    ```
    1. **add_sustained_instinct_in_time**
       

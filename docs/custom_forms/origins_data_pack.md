@@ -5,13 +5,13 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 此外，mod额外添加了一些与特有机制有关的power与action可供使用
 
 ---
-### mod中额外添加的power与action：
+## mod中额外添加的power与action：
 
-1. **instinct值相关**
+### instinct值相关
 
    这些power与action用于与instinct系统交互，用于增加或减少instinct值。具体值通过预定义的enum决定：
    
-   ```
+   ```json
    {
        // 立即效果（值类型）
        FORM_OCELOT_ATTACK_LIVESTOCK(3.0f),
@@ -36,8 +36,8 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
        FORM_SUSTAINED_INSTINCT_FOOD(0.1f);
    }
    ```
-   
-   1. **add_sustained_instinct_in_time**
+
+#### add_sustained_instinct_in_time
       
       在一定时间内增加或减少instinct的power，示例如下：
 
@@ -59,7 +59,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
       }
       ```
 
-   2. **add_instinct**
+#### add_instinct
       
       瞬时增加或减少instinct的action，只适用于立即效果的enum定义，示例如下：
 
@@ -77,8 +77,10 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
       }
       ```
    一般而言，对于“阶段变化形态”的0和1阶段，定义金苹果与催化剂的add_sustained_instinct_in_time power是必要的。当然，你也可以随意定义自己的instinct物品
+   
+---
 
-3. **角色缩放相关：**
+### 角色缩放相关：
    
    你可以通过`scale`power调整角色的尺寸缩放，这一缩放不会影响到形态的移动速度与跳跃高度等属性
    
@@ -91,7 +93,9 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
    }
    ```
 
-4. **漂浮能力：**
+---
+
+### 漂浮能力：
    
    给与角色长按跳跃键时飞行一定高度与空中悬浮能力的power，`“continuous”`的值必须为`true`
 

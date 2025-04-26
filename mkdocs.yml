@@ -11,6 +11,9 @@ theme:
   highlightjs: true
 plugins:
   - search
+  - autorefs
+  - alias
+  - categories
   - mkdocstrings:
       handlers:
         # See: https://mkdocstrings.github.io/python/usage/
@@ -18,6 +21,7 @@ plugins:
           options:
             docstring_style: sphinx
 markdown_extensions:
-  - markdown_include.include:
-      base_path: .
-  - admonition
+    - toc:
+        separator: "_"
+    - admonition
+    

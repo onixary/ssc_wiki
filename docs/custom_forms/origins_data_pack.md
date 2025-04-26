@@ -4,6 +4,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 
 此外，mod额外添加了一些与特有机制有关的power与action可供使用
 
+---
 ### mod中额外添加的power与action：
 
 1. **instinct值相关**

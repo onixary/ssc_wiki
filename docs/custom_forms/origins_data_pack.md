@@ -11,7 +11,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 
 这些power与action用于与instinct系统交互，用于增加或减少instinct值。具体值通过预定义的enum决定
    
-   ```json
+```json
    {
        // 立即效果（值类型）
        FORM_OCELOT_ATTACK_LIVESTOCK(3.0f),
@@ -35,13 +35,13 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
        FORM_SUSTAINED_INSTINCT_ENVIRONMENT_LARGE(0.008f),
        FORM_SUSTAINED_INSTINCT_FOOD(0.1f);
    }
-   ```
+```
 
 #### add_sustained_instinct_in_time
       
 在一定时间内增加或减少instinct的power，示例如下
 
-   ```json
+```json
    {
       "type": "origins:add_sustained_instinct_in_time",
       "instinct_effect_type": "FORM_AXOLOTL_EAT_FISH",
@@ -57,13 +57,13 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
          }
       }
    }
-   ```
+```
 
 #### add_instinct
       
 瞬时增加或减少instinct的action，只适用于立即效果的enum定义，示例如下
 
-   ```json
+```json
    {
       "type": "origins:self_action_on_hit",
       "entity_action": {
@@ -75,7 +75,8 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
          "tag": "origins:livestock"
       }
    }
-   ```
+```
+
 一般而言，对于“阶段变化形态”的0和1阶段，定义金苹果与催化剂的`add_sustained_instinct_in_time power`是必要的。当然，你也可以随意定义自己的instinct物品
    
 ---

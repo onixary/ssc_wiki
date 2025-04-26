@@ -9,7 +9,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 
 ### instinct值相关
 
-这些power与action用于与instinct系统交互，用于增加或减少instinct值。具体值通过预定义的enum决定：
+这些power与action用于与instinct系统交互，用于增加或减少instinct值。具体值通过预定义的enum决定
    
    ```json
    {
@@ -39,7 +39,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 
 #### add_sustained_instinct_in_time
       
-在一定时间内增加或减少instinct的power，示例如下：
+在一定时间内增加或减少instinct的power，示例如下
 
    ```json
    {
@@ -61,7 +61,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 
 #### add_instinct
       
-瞬时增加或减少instinct的action，只适用于立即效果的enum定义，示例如下：
+瞬时增加或减少instinct的action，只适用于立即效果的enum定义，示例如下
 
    ```json
    {

@@ -1,9 +1,2 @@
-Template for the Read the Docs tutorial
+Shape Shifter Curse Minecraft mod Wiki / 幻形者诅咒 Wiki项目
 =======================================
-
-This GitHub template includes fictional Python library
-with some basic Sphinx docs.
-
-Read the tutorial here:
-
-https://docs.readthedocs.io/en/stable/tutorial/

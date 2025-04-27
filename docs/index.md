@@ -1,5 +1,7 @@
 # 欢迎来到幻形者诅咒 Wiki文档
 
+### This wiki also has [English version](https://ssc-wiki.readthedocs.io/en/latest/)
+
 **幻形者诅咒（Shape Shifter Curse）** 是为Fabric端开发的Minecraft java版模组
 
 这一mod允许玩家在“诅咒之月”与“本能”机制的影响下，逐渐转变成基于原版生物设计的不同形态，并获取它们特有的能力与劣势

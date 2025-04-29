@@ -1,7 +1,8 @@
 site_name: 幻形者诅咒 Wiki文档
 nav:
     - Home: index.md
-    - 创建自定义形态:
+    - 中文版介绍页面: overview_page/overview_zh_cn.md
+    - 创建自定义形态: 
         - 概览: custom_forms/overview.md
         - 资源包/数据包示例: custom_forms/pack_example.md
         - 基于Origin Furs数据驱动方式的自定义模型: custom_forms/originfur_resource_pack.md

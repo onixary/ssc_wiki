@@ -8,7 +8,7 @@
 
 每种形态都有独立的模型与以及（可能的）特殊动画，其能力与劣势也经过设计与平衡，来尽可能在尊重游戏原本体验的情形下添加有趣的特色
 
-访问Modrinth与[Curseforge](https://www.curseforge.com/minecraft/mc-mods/shape-shifter-curse)页面来获取进一步信息
+访问[Curseforge](https://www.curseforge.com/minecraft/mc-mods/shape-shifter-curse)页面来获取进一步信息
 
 本mod开源免费，你可以在这里找到[Github项目](https://github.com/onixary/shape-shifter-curse-fabric)
 

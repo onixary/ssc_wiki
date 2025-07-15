@@ -1,15 +1,6 @@
-
 ![](../img/Banner.png)
 
-1.0.31版本更新：一个先导的四足形态已经推出
 
-与四足形态相关的各种问题已经基本解决。1.0.31版本更新了Feral Cat的sp形态，拥有完整一套动画以及对应的第一人称/第三人称手持道具视角
-
-这一形态基本是作为之后要制作的形态的模板，它没有太多特殊能力
-
-使用鲑鱼桶+月尘药水炼制形态药水
-
-enjoy!
 
 ### 描述
 
@@ -57,9 +48,7 @@ enjoy!
 
 ### 我要如何开始？
 
-当玩家第一次加入世界时，会获得幻形者之书——打开它，之后跟随成就页面的引导
-
-提示：寻找散发着咒文效果的生物，以及获取诅咒之月期间生物掉落的特殊掉落物
+请阅读mod的Wiki文档
 
 ### 安装
 
@@ -67,24 +56,23 @@ enjoy!
 
 抱歉，这是一个有点长的列表：
 
--   [PlayerAbilityLib](https://www.curseforge.com/minecraft/mc-mods/pal)
+- [PlayerAbilityLib](https://www.curseforge.com/minecraft/mc-mods/pal)
 
--   [Cardinal Components API](https://www.curseforge.com/minecraft/mc-mods/cardinal-components-api)
+- [Cardinal Components API](https://www.curseforge.com/minecraft/mc-mods/cardinal-components-api)
 
--   [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
+- [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 
--   [First-person Model](https://www.curseforge.com/minecraft/mc-mods/first-person-model)
+- [First-person Model](https://www.curseforge.com/minecraft/mc-mods/first-person-model)
 
--   [Azurelib](https://www.curseforge.com/minecraft/mc-mods/azurelib)
+- [Azurelib](https://www.curseforge.com/minecraft/mc-mods/azurelib)
 
--   [Pehkui](https://www.curseforge.com/minecraft/mc-mods/pehkui)
+- [Pehkui](https://www.curseforge.com/minecraft/mc-mods/pehkui)
 
--   [Forge Config API Port](https://www.curseforge.com/minecraft/mc-mods/forge-config-api-port-fabric)
+- [Forge Config API Port](https://www.curseforge.com/minecraft/mc-mods/forge-config-api-port-fabric)
 
--   [Satin API](https://www.curseforge.com/minecraft/mc-mods/satin-api)
+- [Satin API](https://www.curseforge.com/minecraft/mc-mods/satin-api)
 
--   [owo-lib](https://www.curseforge.com/minecraft/mc-mods/owo-lib)
-
+- [owo-lib](https://www.curseforge.com/minecraft/mc-mods/owo-lib)
 
 #### 有可能不兼容的mod
 
@@ -96,55 +84,47 @@ BetterCombat等修改战斗机制的mod可能会导致一些与战斗相关的�
 
 - **我的角色皮肤被替换了？**
 
-   在开启mod内容之后，玩家的角色皮肤将被替换为mod内置的角色皮肤(aka: the shifter)，这是出于形态模型的美术一致性，以及尊重他人角色的考虑
+    在开启mod内容之后，玩家的角色皮肤将被替换为mod内置的角色皮肤(aka: the shifter)，这是出于形态模型的美术一致性，以及尊重他人角色的考虑
 
-   你可以通过将设置文件config/config-ssc.json5中的"keepOriginalSkin"设为true来使用自己的角色皮肤
+    你可以通过游戏中的指令`/shape-shifter-curse keep_original_skin true`来使用你自己的皮肤
 
 - **它是否适用于服务器？**
 
-   这一mod主要注重于单人体验，我还没有测试过它的服务器兼容性
+   是的！
 
-   您可以尝试在服务器安装它，如果发现问题请提issue
+   在1.0.5版本后，mod已经实现了服务器兼容。如果您发现了问题，请提issue
 
 - **我不喜欢firstPerson的第一人称效果**
 
-   不同形态会有自己的特有动画。为了在第一人称表现这些动画，增强沉浸感，firstPerson会作为mod的依赖项
+    不同形态会有自己的特有动画。为了在第一人称表现这些动画，增强沉浸感，firstPerson会作为mod的依赖项
 
-   你可以按下按键（默认为F6）临时切换到原版的第一人称，或是直接在mod设置中将其关闭。不过会出现第一人称模型与形态模型不匹配的问题（我暂时还没法解决这个）
+    你可以按下按键（默认为F6）临时切换到原版的第一人称，或是直接在mod设置中将其关闭。不过会出现第一人称模型与形态模型不匹配的问题（我暂时还没法解决这个）
 
 - **我可以自定义自己的形态么？**
 
-   是的。虽然有一点限制，不过你可以通过数据包+资源包的方式来自定义属于自己的形态，包括模型、特有能力、instinct变化与描述文本
+    是的。虽然有一点限制，不过你可以通过数据包+资源包的方式来自定义属于自己的形态，包括模型、特有能力、instinct变化与描述文本
 
-   请参考文档与源码中的示例
+    请参考wiki文档与源码中的示例
 
 - **我要怎么变成其他形态？**
 
-   剧透：
+   在mod流程中，你可以通过成就系统与合成表来获取相关提示 
 
-   有两种方式可以获取形态变化效果：1. 寻找散发着咒文效果的生物并靠近它们；2. 酿造药水
-
-   使用未加工的月尘+蜂蜜瓶合成月尘基质，之后用月尘基质+粗制的药水酿造月尘药水，之后再次添加特殊原料(滴水石锥/大型垂滴叶/生鸡肉/紫水晶碎片)酿造给与形态变化效果的药水
-
-   在效果生效时睡上一觉即可
-
-   当然，也支持使用命令
+   如果仍有疑问，请参考wiki文档
 
 - **某个形态是永久性的么？**
 
-   至少目前不是。任何阶段的形态都有恢复的方法，请查看mod的成就页面来获取进一步的信息
+    1\.0.4版本之后添加了几个永久保持的形态
 
-   剧透：
-
-   诅咒之月+抑制剂
+   请参考mod文档
 
 - **我不小心遗失了幻形者之书**
 
-   你可以使用未加工的月尘+书本重新合成
+    你可以使用未加工的月尘+书本重新合成
 
 - **这个mod是SFW的么？**
 
-   当然！
+    当然！
 
 ### 特别感谢
 

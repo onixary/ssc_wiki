@@ -36,15 +36,15 @@
 
 **合成月尘基质物品**
 
-img
+![](../img/moondust_matrix_receipe.png)
 
-**使用月尘基质炼制月尘药水**
+**使用月尘基质+粗制的药水炼制月尘药水**
 
-img
+![](../img/moondust_potion_brew.png)
 
 **再次使用月尘药水炼制形态药水**
 
-img
+![](../img/form_potion_brew.png)
 
 ### 目前的形态药水配方：
 

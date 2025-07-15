@@ -42,7 +42,7 @@ image
 
 1.定位旧存档位置
 
-旧存档位置：<MINECRAFT_VERSION>\\Config\\shape_shifter_curse_fabric\\<WORLD_NAME>
+旧存档位置：(MINECRAFT_VERSION)\\Config\\shape_shifter_curse_fabric\\(WORLD_NAME)
 
 您可以在路径下找到以您对UUID开头的多个文件，将其复制下来
 
@@ -50,7 +50,7 @@ image
 
 2.移动到新的存档位置
 
-新存档位置：<MINECRAFT_VERSION>\\saves\\<WORLD_NAME>\\data\\shape-shifter-curse
+新存档位置：(MINECRAFT_VERSION)\\saves\\(WORLD_NAME)\\data\\shape-shifter-curse
 
 如果没有shape-shifter-curse文件夹，就新建一个，并将复制的文件粘贴到其中
 

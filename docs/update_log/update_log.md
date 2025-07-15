@@ -44,7 +44,7 @@ image
 
 旧存档位置：(MINECRAFT_VERSION)\\Config\\shape_shifter_curse_fabric\\(WORLD_NAME)
 
-您可以在路径下找到以您对UUID开头的多个文件，将其复制下来
+您可以在路径下找到以您的UUID开头的多个文件，将其复制下来
 
 诅咒之月的判定已被更改，你无需迁移诅咒之月数据文件
 

@@ -105,3 +105,17 @@ ocelot_2/ocelot_3形态现在空手攻击时会带有横扫之刃效果
 加入使魔红狐形态的变体雪狐形态，以及蝙蝠形态的第四阶段永久形态
 
 bug修复与相关优化
+
+### 1\.0.62
+
+有赖于Github贡献者 [@xu233333](https://github.com/xu233333) 的慷慨贡献，这一小版本提供了更好的体验
+
+- 修复mod内药水的药水箭不生效的bug
+
+- 完成对原版第一人称的适配，现在原版可以正常显示形态模型，无需FirstPerson mod（尽管如此，依然推荐使用FirstPerson mod来进一步增强沉浸感）
+
+- 使用原版api重构幻形者之书的UI逻辑，移除对owo-lib的内部依赖来提升兼容性
+
+- 现在咒文生物的生成概率可以被配置，详细说明请见[wiki](https://ssc-wiki.readthedocs.io/en/latest/mod_content/mod_config/)
+
+- 补充snow_fox形态不全的描述

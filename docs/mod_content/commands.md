@@ -4,7 +4,11 @@
 
 - 触发形态变化：`/shape-shifter-curse transform_to_form <USER> <FORM>`
 
+- 触发自定义形态变化：`/shape-shifter-curse transform_to_custom_form <USER> <FORM>`
+
 - 直接设定形态：`/shape-shifter-curse set_form <USER> <FORM>`
+
+- 直接设定自定义形态：`/shape-shifter-curse set_custom_form <USER> <FORM>`
 
 - 直接触发诅咒之月事件：`/shape-shifter-curse jump_to_next_cursed_moon`
 

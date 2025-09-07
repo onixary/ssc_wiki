@@ -119,3 +119,13 @@ bug修复与相关优化
 - 现在咒文生物的生成概率可以被配置，详细说明请见[wiki](https://ssc-wiki.readthedocs.io/en/latest/mod_content/mod_config/)
 
 - 补充snow_fox形态不全的描述
+
+### 1.0.63 - 1.0.64
+
+- 修复服务端多人游玩时bat_3的攀附与悬挂动画没有向其他玩家同步的问题
+
+- 修复强效抑制剂不对特殊形态生效的问题
+
+- [@xu233333](https://github.com/xu233333)：新版幻形者之书界面添加之前的文字放大显示功能
+
+- 紧急修复当owo-lib mod不存在时本地化失效的问题

@@ -68,9 +68,9 @@
 
 AnimationOverhul、Emotecraft等修改角色动画的mod，以及YSM等修改角色模型的mod很有可能与本mod不兼容。它们不一定会导致逻辑冲突，但是同时使用它们会破坏mod中的动画与模型
 
-    ![](../img/dog.gif)
+![](../img/dog.gif)
 
-    *尤其是对于四足形态而言...*
+*尤其是对于四足形态而言...*
 
 另外，BetterCombat等修改战斗机制的mod可能会导致一些与战斗相关的形态能力的判定出现一些问题
 

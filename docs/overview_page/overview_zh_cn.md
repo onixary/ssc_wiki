@@ -62,8 +62,6 @@
 
 - [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 
-- [First-person Model](https://www.curseforge.com/minecraft/mc-mods/first-person-model)
-
 - [Azurelib](https://www.curseforge.com/minecraft/mc-mods/azurelib)
 
 - [Pehkui](https://www.curseforge.com/minecraft/mc-mods/pehkui)
@@ -72,13 +70,21 @@
 
 - [Satin API](https://www.curseforge.com/minecraft/mc-mods/satin-api)
 
-- [owo-lib](https://www.curseforge.com/minecraft/mc-mods/owo-lib)
+### 建议安装的mod
+
+[First-person Model](https://www.curseforge.com/minecraft/mc-mods/first-person-model)
+
+在1.0.63版本后，玩家模型可以在原版第一人称下正常显示，但是依然建议安装First-person Model以获得更好的沉浸感
 
 #### 有可能不兼容的mod
 
 AnimationOverhul、Emotecraft等修改角色动画的mod，以及YSM等修改角色模型的mod很有可能与本mod不兼容。它们不一定会导致逻辑冲突，但是同时使用它们会破坏mod中的动画与模型
 
-BetterCombat等修改战斗机制的mod可能会导致一些与战斗相关的形态能力的判定出现一些问题，不过除此以外，大部分情况下应可以兼容
+    ![](../img/dog.gif)
+
+    *尤其是对于四足形态而言...*
+
+另外，BetterCombat等修改战斗机制的mod可能会导致一些与战斗相关的形态能力的判定出现一些问题
 
 ### FAQ：
 
@@ -96,9 +102,7 @@ BetterCombat等修改战斗机制的mod可能会导致一些与战斗相关的�
 
 - **我不喜欢firstPerson的第一人称效果**
 
-    不同形态会有自己的特有动画。为了在第一人称表现这些动画，增强沉浸感，firstPerson会作为mod的依赖项
-
-    你可以按下按键（默认为F6）临时切换到原版的第一人称，或是直接在mod设置中将其关闭。不过会出现第一人称模型与形态模型不匹配的问题（我暂时还没法解决这个）
+    在1.0.63版本后，玩家模型可以在原版第一人称下正常显示。First-person Model模组不再作为强制依赖
 
 - **我可以自定义自己的形态么？**
 

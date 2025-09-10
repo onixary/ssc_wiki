@@ -9,6 +9,7 @@ nav:
         - 开启模组内容: mod_content/enable_mod_content.md
         - 形态变化效果: mod_content/transform_status_effect.md
         - 形态种类: mod_content/form_types.md
+        - 形态能力概述: mod_content/form_ability_overview.md
         - 形态的变化与复原指南: mod_content/form_change_and_recovery.md
         - 可用指令: mod_content/commands.md
         - 可用配置项: mod_content/mod_config.md

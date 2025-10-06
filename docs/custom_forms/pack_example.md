@@ -40,9 +40,9 @@ example_form_datapack // 数据包根目录
 │   │   │   ├── custom_eat_amethyst_shard.json // powers自定义能力定义示例
 │   │   │   └── custom_night_vision.json
 │   │   └── ssc_form // 形态定义JSON文件目录
-│   │       └── example.json // 自定义的形态定义JSON文件。动画、形态种类、体型等都在此处定义
+│   │       └── form_example.json // 自定义的形态定义JSON文件。动画、形态种类、体型等都在此处定义
 │   └── origins\origin_layers // origin_layers目录
-│       └── origin.json // origin_layers注册文件。只有将example_namespace:example添加在其中才能够被origins识别
+│       └── origin.json // origin_layers注册文件。只有将example_namespace:form_example添加在其中才能够被origins识别
 └── pack.mcmeta // 包描述文件
 
 ```

@@ -16,9 +16,10 @@ nav:
         - 常见问题: mod_content/common_issues.md
     - 创建自定义形态: 
         - 概览: custom_forms/overview.md
-        - 资源包/数据包示例: custom_forms/pack_example.md
-        - 基于Origin Furs数据驱动方式的自定义模型: custom_forms/originfur_resource_pack.md
-        - 基于Origins数据驱动方式的自定义形态能力: custom_forms/origins_data_pack.md
+        - 资源包/数据包结构: custom_forms/pack_example.md
+        - 配置形态定义JSON: custom_forms/form_definition_json.md
+        - 添加形态自定义模型与动画: custom_forms/originfur_resource_pack.md
+        - 添加自定义形态能力: custom_forms/origins_data_pack.md
 theme:
   name: readthedocs
   highlightjs: true

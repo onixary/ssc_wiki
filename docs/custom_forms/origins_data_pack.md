@@ -1,115 +1,87 @@
-# 基于Origins数据驱动方式的自定义形态能力
+# 添加自定义形态能力
 
 mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形态的不同能力。换言之，每个形态都对应着Origins中的一个单独的origin
 
 要为自定义形态定义能力，请参考[Origins文档](https://origins.readthedocs.io/en/latest/)
 
-此外，mod额外添加了一些与特有机制有关的power与action可供使用
+此外，模组额外添加了一些与特有机制有关的power与action可供使用
 
 ---
-## mod中额外添加的power与action：
+## 模组特有的power与action：
 
-### instinct值相关
+### 本能系统相关
 
-这些power与action用于与instinct系统交互，用于增加或减少instinct值。具体值通过预定义的enum决定
-   
-```json
-   {
-       // 立即效果（值类型）
-       FORM_OCELOT_ATTACK_LIVESTOCK(3.0f),
-       // 供自定义形态使用的效果
-       FORM_INSTANT_INSTINCT_MEDIUM(3.0f),
-       FORM_INSTANT_INSTINCT_LARGE(5.0f),
-       // 持续效果（速率类型）
-       // 催化剂与金苹果的生效时间都是2秒
-       FORM_USE_GOLDEN_APPLE(-4.25f / 2),
-       FORM_USE_CATALYST(1.25f / 2),
-       FORM_BAT_IN_DARK(0.004f),
-       FORM_BAT_EAT_FRUIT(0.1f),
-       FORM_BAT_NEAR_DRIPSTONE(0.006f),
-       FORM_AXOLOTL_IN_WATER(0.004f),
-       FORM_AXOLOTL_EAT_FISH(0.1f),
-       FORM_AXOLOTL_NEAR_DRIPLEAF(0.008f),
-       FORM_OCELOT_EAT_RAW_MEAT(0.1f),
-       FORM_OCELOT_ON_LEAF(0.008f),
-       // 供自定义形态使用的效果
-       FORM_SUSTAINED_INSTINCT_ENVIRONMENT_MEDIUM(0.004f),
-       FORM_SUSTAINED_INSTINCT_ENVIRONMENT_LARGE(0.008f),
-       FORM_SUSTAINED_INSTINCT_FOOD(0.1f);
-   }
-```
+这些power与action用于与模组的本能系统交互，用于在特定条件下增加或减少本能值
 
-#### add_sustained_instinct_in_time
+#### add_sustained_instinct
       
-在一定时间内增加或减少instinct的power，示例如下
+用于持续增加或减少instinct的power
+
+以下示例用于实现当玩家处于繁茂洞穴群系中时，以0.003每tick的速度持续增加本能值
 
 ```json
-   {
-      "type": "origins:add_sustained_instinct_in_time",
-      "instinct_effect_type": "FORM_AXOLOTL_EAT_FISH",
-      "duration": 20,
-      "is_on_item_finished": true,
+    {
+      "type": "shape-shifter-curse:add_sustained_instinct",
+      "instinct_effect_id": "FORM_AXOLOTL_BIOME",
+      "value": 0.003,
+      "duration": 1,
       "condition": {
-         "type": "origins:using_item",
-         "item_condition": {
-            "type": "origins:ingredient",
-            "ingredient": {
-               "tag": "origins:fish"
-            }
-         }
+        "type": "origins:biome",
+        "biome": "minecraft:lush_caves"
       }
-   }
+    }
 ```
 
 #### add_instinct
       
-瞬时增加或减少instinct的action，只适用于立即效果的enum定义，示例如下
+一次性增加或减少instinct的action
+
+以下示例用于实现当玩家每次食用生鱼时，在20tick内增加0.1的本能值
 
 ```json
-   {
-      "type": "origins:self_action_on_hit",
+    {
+      "type": "origins:action_on_item_use",
       "entity_action": {
-      "type": "origins:add_instinct",
-         "instinct_effect_type": "FORM_OCELOT_ATTACK_LIVESTOCK"
+        "type": "shape-shifter-curse:add_instinct",
+        "instinct_effect_id": "FORM_AXOLOTL_EAT_FISH",
+        "value": 0.1,
+        "duration": 20
       },
-      "target_condition": {
-         "type": "origins:in_tag",
-         "tag": "origins:livestock"
+      "item_condition": {
+        "type": "origins:ingredient",
+        "ingredient": {
+          "tag": "origins:fish"
+        }
       }
-   }
+    }
 ```
 
-一般而言，对于“阶段变化形态”的0和1阶段，定义金苹果与催化剂的`add_sustained_instinct_in_time` power是必要的。当然，你也可以随意定义自己的instinct物品
-   
+一般而言，对于“阶段变化形态”的0和1阶段，加入[金苹果](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/src/main/resources/data/shape-shifter-curse/powers/form_instinct_use_golden_apple.json)与[催化剂](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/src/main/resources/data/shape-shifter-curse/powers/form_instinct_use_catalyst.json)的相关power是必要的。当然，你也可以随意定义自己的instinct物品
+
 ---
 
 ### 角色缩放相关：
    
 你可以通过`scale`power调整角色的尺寸缩放，这一缩放不会影响到形态的移动速度与跳跃高度等属性
+
+`eye_scale`字段用于定义视角高度的缩放
    
 每个形态都**必须**包含一个`scale`power，否则可能会在变化形态时出现尺寸错乱的情况
 
 ```json
 {
-   "type": "origins:scale",
-   "scale" : 1.0
+  "type": "shape-shifter-curse:scale",
+  "scale": 0.5,
+  "eye_scale": 0.6
 }
 ```
 
 ---
 
-### 漂浮能力：
+### 其他特有的power与action：
    
-给与角色长按跳跃键时飞行一定高度与空中悬浮能力的power，`“continuous”`的值必须为`true`
+模组中各形态所用到的自定义power、action与condition均在源码的[additional_power](https://github.com/onixary/shape-shifter-curse-fabric/tree/master/src/main/java/net/onixary/shapeShifterCurseFabric/additional_power)目录下，此处不再赘述
 
-```json
-{
-   "type": "origins:levitate",
-   "ascent_speed": 0.3,
-   "max_ascend_duration" : 30,
-   "key": {
-      "key": "key.jump",
-      "continuous": true
-   }
-}
-```
+请随意参考与复用它们
+
+

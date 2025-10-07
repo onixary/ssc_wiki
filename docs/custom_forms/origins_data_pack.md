@@ -10,9 +10,9 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 
 ## 挂载在现有形态下的变形触发power
 
-### 变形power的注册
+### 变形power的挂载
 
-要通过游戏内条件触发变形，你需要首先在`custom_form_pack_example/example_form_datapack/data/example_namespace/origins_power_extra`目录下注册一个自己的变形power
+要通过游戏内条件触发变形，你需要首先在`custom_form_pack_example/example_form_datapack/data/example_namespace/origins_power_extra`目录下挂载一个自己的变形power
 
 ```
 {
@@ -27,9 +27,11 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 
 如此一来，你就可以在处于`form_original_shifter`时，触发`to_example_form`这一power中实现的变形效果
 
+若你实现了自己的基础形态，而不是复用模组中的基础形态的话，你可以跳过挂载步骤，直接在自己的基础形态中实现变形power
+
 ### 变形power的实现
 
-在成功注册之后，你需要实现自己的变形power
+在JSON中挂载之后，你需要实现自己的变形power
 
 与其他power一致，变形power需要被放置在`custom_form_pack_example/example_form_datapack/data/example_namespace/powers`目录下
 
@@ -70,6 +72,8 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
       
 用于持续增加或减少instinct的power
 
+当power的`instinct_effect_id`字段与现有power重复时，则后加载的power会覆盖掉已有的power
+
 以下示例用于实现当玩家处于繁茂洞穴群系中时，以0.003每tick的速度持续增加本能值
 
 ```json
@@ -89,7 +93,7 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
       
 一次性增加或减少instinct的action
 
-以下示例用于实现当玩家每次食用生鱼时，在20tick内增加0.1的本能值
+以下示例用于实现当玩家每次食用生鱼时，在20tick的时间内，每tick增加0.1的本能值。即在1秒内增加2本能值
 
 ```json
     {

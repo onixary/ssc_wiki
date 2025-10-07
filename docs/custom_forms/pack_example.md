@@ -23,8 +23,10 @@ example_form_resourcepack // 资源包根目录
 │   └── orif-defaults // 自定义模型与动画文件目录，使用OriginFur mod的格式
 │       ├── furs // 自定义形态模型json定义目录
 │       │   └── example_namespace.form_example.json // 自定义形态模型的json定义文件，包含贴图与软骨骼等的相关配置
-│       └── geo // 自定义形态模型目录
-│           └── form_example.geo.json // AzureLib geo格式的导出模型文件
+│       ├── geo // 自定义形态模型目录
+│       │   └── form_example.geo.json // AzureLib geo格式的导出模型文件
+│       └── textures // 自定义形态模型贴图目录
+│           └── form_example.png // 自定义形态模型贴图
 └── pack.mcmeta // 包描述文件
 ```
 

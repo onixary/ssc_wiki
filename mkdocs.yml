@@ -11,6 +11,7 @@ nav:
         - 形态种类: mod_content/form_types.md
         - 形态能力概述: mod_content/form_ability_overview.md
         - 形态的变化与复原指南: mod_content/form_change_and_recovery.md
+        - 形态的专属护甲: mod_content/morphscale_armors.md
         - 可用指令: mod_content/commands.md
         - 可用配置项: mod_content/mod_config.md
         - 常见问题: mod_content/common_issues.md

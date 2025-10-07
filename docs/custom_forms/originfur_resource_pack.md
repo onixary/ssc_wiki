@@ -72,6 +72,6 @@ mod基于[playerAnimator](https://modrinth.com/mod/playeranimator)的方法来�
 
 您的动画json文件应该放置在`assets/example_namespace/player_animation`下
 
-在制作与导出完成后，您还需要在配置文件中进行注册
+在制作与导出完成后，您还需要在[JSON配置文件](https://ssc-wiki.readthedocs.io/zh-cn/latest/custom_forms/form_definition_json/)中进行注册
 
 建议您首先复用模组中已经实现的动画，在没有合适动画时再自行制作

@@ -36,6 +36,8 @@ example_form_datapack // 数据包根目录
 │   ├── example_namespace // 自定义形态的命名空间，与资源包中的命名空间保持一致
 │   │   ├── origins // origins的origin定义目录
 │   │   │   └── form_example.json // 自定义形态所对应的origin定义
+│   │   ├── origins_power_extra // 要挂载在已有形态下的额外自定义能力目录
+│   │   │   └── append_transform.json // 挂载在已有形态下额外能力JSON，需要通过这个来实现变形的触发
 │   │   ├── powers // origins的powers 自定义能力目录
 │   │   │   ├── custom_eat_amethyst_shard.json // powers自定义能力定义示例
 │   │   │   └── custom_night_vision.json

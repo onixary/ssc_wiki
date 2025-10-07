@@ -7,6 +7,59 @@ mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形�
 此外，模组额外添加了一些与特有机制有关的power与action可供使用
 
 ---
+
+## 挂载在现有形态下的变形触发power
+
+### 变形power的注册
+
+要通过游戏内条件触发变形，你需要首先在`custom_form_pack_example/example_form_datapack/data/example_namespace/origins_power_extra`目录下注册一个自己的变形power
+
+```
+{
+  "TargetOriginsID": "shape-shifter-curse:form_original_shifter",
+  "ExtraPowers": [
+    "example_namespace:to_example_form"
+  ]
+}
+```
+
+在上例中，`example_namespace:to_example_form`这一power会挂载到`shape-shifter-curse:form_original_shifter`这一形态下
+
+如此一来，你就可以在处于`form_original_shifter`时，触发`to_example_form`这一power中实现的变形效果
+
+### 变形power的实现
+
+在成功注册之后，你需要实现自己的变形power
+
+与其他power一致，变形power需要被放置在`custom_form_pack_example/example_form_datapack/data/example_namespace/powers`目录下
+
+你可以在[这里](https://github.com/onixary/shape-shifter-curse-fabric/tree/master/src/main/resources/data/shape-shifter-curse/origins)找到当前的所有形态id
+
+使用`shape-shifter-curse:transform_to_form`action来触发变形逻辑：
+
+```
+{
+  "type": "origins:action_on_item_use",
+  "entity_action": {
+    "type": "shape-shifter-curse:transform_to_form",
+    "form_id": "example_namespace:example",
+    "instant": true
+  },
+  "item_condition": {
+    "type": "origins:ingredient",
+    "ingredient": {
+      "tag": "origins:fish"
+    }
+  }
+}
+```
+
+以上示例中，当玩家食用任何鱼类时，会触发`shape-shifter-curse:transform_to_form`，将玩家变形为`example_namespace:example`形态
+
+由于你已经通过注册将power挂载在了`form_original_shifter`形态下，只有在该形态中，这一power才会生效
+
+---
+
 ## 模组特有的power与action：
 
 ### 本能系统相关

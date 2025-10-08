@@ -21,6 +21,7 @@ nav:
         - 配置形态定义JSON: custom_forms/form_definition_json.md
         - 添加形态自定义模型与动画: custom_forms/originfur_resource_pack.md
         - 添加自定义形态能力: custom_forms/origins_data_pack.md
+        - 为自定义形态加入换色功能: custom_forms/custom_form_colormask.md
 theme:
   name: readthedocs
   highlightjs: true

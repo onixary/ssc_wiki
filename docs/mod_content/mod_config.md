@@ -45,6 +45,14 @@
 
         是否反转强调颜色2的灰度值
 
+![form_color_config.png](../img/form_color_config.png)
+
+在1.0.73版本后形态颜色配置中，alpha通道（即Hex格式颜色值的前两位）表示是否覆盖形态的原本贴图颜色，只接受FF与00两种输入
+
+当设置为00时，则对应区域的颜色将使用原本的贴图颜色
+
+你可以通过配置这一通道的值来实现仅覆盖眼睛颜色等功能
+
 ### 客户端配置项
 
 配置文件路径：`config\shape-shifter-curse-client.toml`

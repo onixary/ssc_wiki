@@ -66,6 +66,8 @@ mod额外实现了用于尾部/飘带等的软骨骼以及动态翅膀。其也�
 
 ## 添加自定义动画
 
+### 特别注意：当前Blockbench 5版本会破坏AzureLib Animator插件的动画导出，请使用BlockBench 4版本
+
 mod基于[playerAnimator](https://modrinth.com/mod/playeranimator)的方法来为不同形态实现自定义动画
 
 要添加自定义动画，您同样需要在Blockbench中安装`AzureLib Animator`插件，并参考[已有动画项目](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/3d_models/player_form/0_common/feral_form/animation/form_feral_common_anim.bbmodel)，在右上角多出的`Animate`标签页中制作帧动画
@@ -73,5 +75,6 @@ mod基于[playerAnimator](https://modrinth.com/mod/playeranimator)的方法来�
 您的动画json文件应该放置在`assets/example_namespace/player_animation`下
 
 在制作与导出完成后，您还需要在[JSON配置文件](https://ssc-wiki.readthedocs.io/zh-cn/latest/custom_forms/form_definition_json/)中进行注册
+
 
 建议您首先复用模组中已经实现的动画，在没有合适动画时再自行制作

@@ -14,7 +14,7 @@
 
 ### 塑形核心
 
-![](../img/morphscale_core_receipe.png)
+![](../img/morphscale_core_recipe.png)
 
 ### 塑形头环
 

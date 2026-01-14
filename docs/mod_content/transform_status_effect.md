@@ -36,7 +36,7 @@
 
 **合成月尘基质物品**
 
-![](../img/moondust_matrix_receipe.png)
+![](../img/moondust_matrix_recipe.png)
 
 **使用月尘基质+粗制的药水炼制月尘药水**
 

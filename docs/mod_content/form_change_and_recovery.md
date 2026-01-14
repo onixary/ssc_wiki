@@ -4,7 +4,7 @@
 
 ### 月尘基质
 
-![](../img/moondust_matrix_receipe.png)
+![](../img/moondust_matrix_recipe.png)
 
 `月尘基质`是炼制`形态药水`以及合成其他相关物品的核心物品
 
@@ -12,13 +12,13 @@
 
 ### 催化剂
 
-![](../img/catalyst_receipe.png)
+![](../img/catalyst_recipe.png)
 
 大幅增加你当前的`本能值`
 
 ### 抑制剂
 
-![](../img/inhibitor_receipe.png)
+![](../img/inhibitor_recipe.png)
 
 在处于`阶段变化形态`的1,2阶段，或者处于`特殊形态`时使用，将你的形态回退一个阶段
 
@@ -28,13 +28,13 @@
 
 ### 共鸣催化剂
 
-![](../img/echo_catalyst_receipe.png)
+![](../img/echo_catalyst_recipe.png)
 
 对于某个包含`永久形态`的`阶段变化形态`而言，在形态的第3阶段使用来变成对应的永久形态
 
 ### 强效抑制剂
 
-![](../img/powerful_inhibitor_receipe.png)
+![](../img/powerful_inhibitor_recipe.png)
 
 与抑制剂相似，不过它可以对`阶段变化形态`的第3阶段生效
 

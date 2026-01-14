@@ -6,12 +6,14 @@ nav:
         - 版本更新日志: update_log/update_log.md
     - Mod内容指南: 
         - 一句话玩法: mod_content/brief_introduction.md
+        - 模组添加的物品: mod_content/mod_specific_items.md
         - 开启模组内容: mod_content/enable_mod_content.md
         - 形态变化效果: mod_content/transform_status_effect.md
         - 形态种类: mod_content/form_types.md
         - 形态能力概述: mod_content/form_ability_overview.md
         - 形态的变化与复原指南: mod_content/form_change_and_recovery.md
         - 形态的专属护甲: mod_content/morphscale_armors.md
+        - 形态专属工具与饰品: mod_content/form_specific_tools_and_trinkets.md
         - 可用指令: mod_content/commands.md
         - 可用配置项: mod_content/mod_config.md
         - 常见问题: mod_content/common_issues.md

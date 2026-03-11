@@ -43,7 +43,7 @@
 
     ![diamond_mining_claw_recipe.png](../img/diamond_mining_claw_recipe.png)
 
-  [工具]需要有力的前爪来使用。增加挖掘效率与伤害，握持时也可以攀附墙壁
+  [工具]需要有力的前爪来使用。增加挖掘效率与伤害，同时当握持这一工具时，你攀附墙壁的能力不会受到影响
 
 
 ### 豹猫形态

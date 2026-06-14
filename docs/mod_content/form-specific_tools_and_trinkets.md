@@ -118,6 +118,31 @@
 
   你受击时获得的凋零效果等级降低，但是持续时间更长
 
+### 蜘蛛形态
+
+* 箭毒纺锤：
+
+  ![venom_spindle_recipe.png](../img/venom_spindle_recipe.png)
+
+  蛛丝弹命中生物时造成伤害，并用中毒替换其迟缓与缠身效果
+
+* 副手斧
+
+  ![auxiliary_axe_recipe.png](../img/auxiliary_axe_recipe.png)
+
+  装备在第二双手上时提升近战攻击力，但是攻速减慢
+
+* 副手剑
+
+  ![auxiliary_sword_recipe.png](../img/auxiliary_sword_recipe.png)
+
+  装备在第二双手上时提升近战攻速，但是消耗武器的更多耐久
+
+* 副手镐
+
+  ![auxiliary_pickaxe_recipe.png](../img/auxiliary_pickaxe_recipe.png)
+
+  装备在第二双手上时提升挖掘效率，但是降低近战攻击力
 
 ### 悦灵形态
 

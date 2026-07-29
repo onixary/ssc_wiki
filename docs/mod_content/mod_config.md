@@ -93,14 +93,6 @@
       
       注意：若要使用旧版本页面，你需要安装owo-lib mod，否则不会生效
 
-- `enableNewStartBook = true`
-
-      是否要启用新版的幻形者之书页面
-
-      默认启用，设为false来使用旧版本的幻形者之书页面
-
-      注意：若要使用旧版本页面，你需要安装owo-lib mod，否则不会生效
-
 - `allowSleepInCursedMoon = false`
     
       是否可以在诅咒之月事件中睡眠，默认为false

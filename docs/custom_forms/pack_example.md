@@ -1,52 +1,69 @@
-# 包结构示例
+# 资源包 / 数据包结构
 
-请参考[Github仓库](https://github.com/onixary/shape-shifter-curse-fabric/tree/master/custom_form_pack_example)中的示例
+请结合[GitHub 仓库示例](https://github.com/onixary/shape-shifter-curse-fabric/tree/master/custom_form_pack_example)阅读本页
 
-一个自定义形态由资源包与数据包两部分组成。资源包负责形态模型与动画的实现，而数据包负责形态能力、种类、体型等的定义
+一个完整的自定义形态通常由**资源包**与**数据包**两部分组成：
 
-对于一个完整的自定义形态而言，两者需要被同时加载并应用
+- **资源包**：负责形态的 3D 模型、贴图、染色蒙版、软骨骼/眨眼配置、动作动画以及本地化文本
+- **数据包**：负责形态定义（分组、阶段、标记、动画绑定）、能力（powers）、变形触发条件、饰品加成与药水配方
 
-## 资源包结构
+两者需要同时加载，且建议**始终使用自己的独立命名空间**（以下示例均以 `example_namespace` 为例）以防冲突
 
+---
+
+## 资源包结构（1.10.0）
+
+1.10.0 版本起，模型定义与资源不再放在 `assets/orif-defaults/furs/` 下，而是统一放在你自己的命名空间目录中：
+
+```text
+example_form_resourcepack/
+├── pack.mcmeta
+└── assets/
+    └── example_namespace/
+        ├── geo/                          # GeckoLib 导出的 .geo.json 模型文件
+        │   └── form_example.geo.json
+        ├── textures/                     # 形态贴图、colormask 蒙版、发光贴图
+        │   └── form_example.png
+        ├── ssc_form_model/               # 形态模型配置文件（取代旧版 orif-defaults/furs）
+        │   └── origins.origin.example_namespace.form_example.json
+        ├── player_animation/             # GeckoLib 导出的玩家动作动画文件
+        │   └── form_example_idle.json
+        ├── lang/                         # 纯文本本地化文件
+        │   ├── en_us.json
+        │   └── zh_cn.json
+        └── rich_lang/                    # 可选：带颜色格式的富文本本地化文件
+            ├── en_us.json
+            └── zh_cn.json
 ```
-example_form_resourcepack // 资源包根目录
-├── assets 
-│   ├── example_namespace // 自定义形态的命名空间。始终使用自己的命名空间来防止冲突
-│   │   ├── lang // 本地化文件目录
-│   │   │   ├── en_us.json // 英语本地化文件
-│   │   │   └── zh_cn.json // 中文本地化文件
-│   │   ├── rich_lang // 富文本本地化文件目录
-│   │   │   ├── en_us.json // 英语本地化文件
-│   │   │   └── zh_cn.json // 中文本地化文件
-│   │   └── player_animation // 自定义动画文件目录
-│   │       └── form_example_idle.json // 自定义动画文件示例，使用AzureLib格式导出
-│   └── orif-defaults // 自定义模型与动画文件目录，使用OriginFur mod的格式
-│       ├── furs // 自定义形态模型json定义目录
-│       │   └── example_namespace.form_example.json // 自定义形态模型的json定义文件，包含贴图与软骨骼等的相关配置
-│       ├── geo // 自定义形态模型目录
-│       │   └── form_example.geo.json // AzureLib geo格式的导出模型文件
-│       └── textures // 自定义形态模型贴图目录
-│           └── form_example.png // 自定义形态模型贴图
-└── pack.mcmeta // 包描述文件
-```
 
-## 数据包结构
+---
 
-```
-example_form_datapack // 数据包根目录
-├── data
-│   ├── example_namespace // 自定义形态的命名空间，与资源包中的命名空间保持一致
-│   │   ├── origins // origins的origin定义目录
-│   │   │   └── form_example.json // 自定义形态所对应的origin定义
-│   │   ├── origins_power_extra // 要挂载在已有形态下的额外自定义能力目录
-│   │   │   └── append_transform.json // 挂载在已有形态下额外能力JSON，需要通过这个来实现变形的触发
-│   │   ├── powers // origins的powers 自定义能力目录
-│   │   │   ├── custom_eat_amethyst_shard.json // powers自定义能力定义示例
-│   │   │   └── custom_night_vision.json
-│   │   └── ssc_form // 形态定义JSON文件目录
-│   │       └── form_example.json // 自定义的形态定义JSON文件。动画、形态种类、体型等都在此处定义
-│   └── origins\origin_layers // origin_layers目录
-│       └── origin.json // origin_layers注册文件。只有将example_namespace:form_example添加在其中才能够被origins识别
-└── pack.mcmeta // 包描述文件
+## 数据包结构（1.10.0）
 
+```text
+example_form_datapack/
+├── pack.mcmeta
+└── data/
+    ├── example_namespace/
+    │   ├── ssc_form/                     # 形态核心定义 JSON（支持 /reload 热重载）
+    │   │   └── example.json
+    │   ├── origins/                      # 形态对应的 Origin 定义
+    │   │   └── form_example.json
+    │   ├── powers/                       # 自定义能力（Apoli / SSC 扩展 Power）
+    │   │   ├── custom_scale.json
+    │   │   ├── custom_night_vision.json
+    │   │   ├── to_example_form.json
+    │   │   └── to_example_form_by_effect.json
+    │   ├── origins_power_extra/          # 可选：向已有形态额外挂载 Power（常用于添加变形入口）
+    │   │   └── append_transform.json
+    │   ├── accessory_power/              # 可选：自定义饰品对形态增删的 Power
+    │   │   └── example.json
+    │   ├── dynamic_brewing_recipes/      # 可选：自定义形态药水酿造配方
+    │   │   └── example_potion_recipe.json
+    │   └── tags/                         # 可选：自定义实体/物品标签
+    │       └── entity_types/
+    │           └── attack_to_example_effect_entity.json
+    └── origins/
+        └── origin_layers/
+            └── origin.json               # 注册自定义 Origin，必须将 example_namespace:form_example 加入其中
 ```

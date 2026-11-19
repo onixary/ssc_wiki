@@ -42,17 +42,17 @@
 
 #### 需要的mod
 
-- [Azurelib](https://www.curseforge.com/minecraft/mc-mods/azurelib)
+- [GeckoLib](https://www.curseforge.com/minecraft/mc-mods/geckolib)（需要 4.x 版本，不兼容 5.x；1.10.0 起不再需要 AzureLib 与 Satin API）
 
 - [Pehkui](https://www.curseforge.com/minecraft/mc-mods/pehkui)
 
-- [Satin API](https://www.curseforge.com/minecraft/mc-mods/satin-api)
-
 ### 建议安装的mod
 
-*   [First-person Model:](https://www.curseforge.com/minecraft/mc-mods/first-person-model) 在1.0.63版本后，玩家模型可以在原版第一人称下正常显示，但是依然建议安装First-person Model以获得更好的沉浸感
+*   [First-person Model](https://www.curseforge.com/minecraft/mc-mods/first-person-model): 在1.0.63版本后，玩家模型可以在原版第一人称下正常显示，但是依然建议安装First-person Model以获得更好的沉浸感
 *   [Rich Translatable Text](https://www.curseforge.com/minecraft/mc-mods/rich-translatable-text): 用于在幻形者之书中显示彩色文本
+*   [Trinkets](https://www.curseforge.com/minecraft/mc-mods/trinkets)（或 Curios / Accessories）: 用于装备形态专属饰品
 *   [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu): 便捷地在游戏中调整诸如自定义颜色等配置
+*   [JEI](https://www.curseforge.com/minecraft/mc-mods/jei) / [EMI](https://www.curseforge.com/minecraft/mc-mods/emi): 便捷查看幻形祭坛等新增合成配方
 *   [Leawind's Third Person](https://modrinth.com/mod/leawind-third-person): 第三人称视角是体验各种形式模型和动画的最佳方式。Leawind's Third Person所使用的算法允许在第三人称视角中像第一人称一样舒适地瞄准任何方向，同时实现电影般的质感
 
 #### 有可能不兼容的mod
@@ -71,7 +71,7 @@ AnimationOverhul、Emotecraft等修改角色动画的mod，以及YSM等修改角
 
     在开启mod内容之后，玩家的角色皮肤将被替换为mod内置的角色皮肤(aka: the shifter)，这是出于形态模型的美术一致性，以及尊重他人角色的考虑
 
-    你可以通过游戏中的指令`/shape-shifter-curse keep_original_skin true`来使用你自己的皮肤
+    你可以通过游戏中的指令`/shape_shifter_curse keep_original_skin true`来使用你自己的皮肤
 
 - **它是否适用于服务器？**
 

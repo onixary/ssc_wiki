@@ -1,80 +1,99 @@
 # 添加形态自定义模型与动画
 
-## 特别注意：模型Blockbench项目与动画Blockbench项目的格式差异
+自定义形态的模型与动作动画均使用 [Blockbench](https://www.blockbench.net/) 制作
 
-自定义动画与模型均需要使用[Blockbench](https://www.blockbench.net/)来进行制作
+自 1.10.0 版本起，模组的运行时渲染库已全面迁移至 **GeckoLib 4.x**，因此无论导出模型还是动作动画，现在均统一使用 Blockbench 的 **`GeckoLib Animation Utils`** 插件
 
-形态的自定义模型基于[Origin Furs](https://modrinth.com/mod/origin-furs)的实现，而形态动画则基于[playerAnimator](https://modrinth.com/mod/playeranimator)的实现
+---
 
-两者模型的**面向轴向**与**左右命名**都有所差异，不能混用：
+## 特别注意：模型工程与动画工程的差异
 
-1. 形态模型的面对方向为+Z方向，而形态动画模型则面向-Z方向
+形态模型沿用了 Origin Furs 的骨骼体系，而动作动画基于 [playerAnimator](https://modrinth.com/mod/playeranimator) 的实现。两者的工程格式存在以下差异，**不能混用**：
 
-2. 形态模型中，腿部骨骼的命名是**左右颠倒**的。这可能是Origin Furs本身的遗留问题，由于修复它会导致效果出错，请维持当前命名
+1. **朝向相反**：形态模型面向 **+Z** 方向，而动作动画模型面向 **-Z** 方向
+2. **腿部命名颠倒**：形态模型中左右腿骨骼的命名是颠倒的（Origin Furs 的历史遗留），请保持原样切勿自行对调
 
-建议您通过修改已有的[形态模型项目](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/3d_models/player_form/axolotl/form_axolotl_2.bbmodel)与[形态动画项目](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/3d_models/player_form/0_common/feral_form/animation/form_feral_common_anim.bbmodel)来实现自己的形态模型与动画
+建议直接以源码中的 [形态模型模板](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/3d_models/player_form/axolotl/form_axolotl_2.bbmodel) 与 [四足通用动画模板](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/3d_models/player_form/0_common/feral_form/animation/form_feral_common_anim.bbmodel) 为基础进行修改
 
-## 添加自定义模型
+---
 
-mod基于[Origin Furs](https://modrinth.com/mod/origin-furs)的逻辑来为不同形态实现自定义模型。形态模型应能够很容易地从其他Blockbench角色模型迁移过来
+## 一、配置自定义模型（`ssc_form_model`）
 
-要为特定形态添加自定义模型，请参考[Origin Furs文档](https://originalfur.readthedocs.io/en/latest/)以及源码[player_form目录](https://github.com/onixary/shape-shifter-curse-fabric/tree/master/3d_models/player_form)的Blockbench项目文件
+1. 使用 Blockbench 的 GeckoLib 插件导出 `.geo.json` 模型，放入 `assets/<命名空间>/geo/`
+2. 将贴图放入 `assets/<命名空间>/textures/`
+3. 在 `assets/<命名空间>/ssc_form_model/` 下新建模型配置 JSON（取代旧版的 `assets/orif-defaults/furs/`），建议命名为 `origins.origin.<命名空间>.<origin名>.json`
 
-要导出形态模型，你需要在Blockbench中安装`AzureLib Animator`插件，并在导出时选择`Export Azurelib.geo Model`
-
-### 注册模型贴图与软骨骼
-
-mod额外实现了用于尾部/飘带等的软骨骼以及动态翅膀。其也需要在json文件中进行注册，示例如下：
+### 模型配置示例（1.10.0 格式）
 
 ```json
 {
-  "model": "orif-defaults:geo/form_allay_sp.geo.json",
-  "texture": "orif-defaults:textures/form_allay_sp/form_allay_sp.png",
-  "overlay": "orif-defaults:textures/form_allay_sp/form_allay_sp_overlay.png",
+  "load_priority": 0,
+  "name": "example_namespace.form_example.model_name",
+  "layer": "origins:origin",
+  "form": "example_namespace:form_example",
+  "wide_only": true,
+
+  "model": "example_namespace:geo/form_example.geo.json",
+  "texture": "example_namespace:textures/form_example.png",
   "hidden": [
-    "leftLeg",
-    "rightLeg",
-    "rightPants",
-    "leftPants",
-    "body",
-    "jacket"
+    "leftLeg", "rightLeg", "rightPants", "leftPants",
+    "leftSleeve", "rightSleeve", "leftArm", "rightArm",
+    "body", "jacket", "head", "hat"
   ],
-  "tail_chain": {
-    "tail_l": [0, 1, 2],
-    "tail_r": [0, 1, 2]
-  },
-  "wing_chain_l": {
-    "wing_l": [0, 1]
-  },
-  "wing_chain_r": {
-    "wing_r": [0, 1]
-  },
-  "tail_chain_head": {
-    "head_tail_l": [0, 1],
-    "head_tail_r": [0, 1]
+
+  "animation_system": "shape-shifter-curse:default",
+  "animation_system_config": {
+    "tail": {
+      "chain": {
+        "tail": [0, 1, 2, 3]
+      }
+    },
+    "head_tail": {
+      "chain": {
+        "ear_l": [0],
+        "ear_r": [0]
+      }
+    },
+    "wing_l": {
+      "chain": {
+        "wing_l": [0, 1]
+      }
+    },
+    "wing_r": {
+      "chain": {
+        "wing_r": [0, 1]
+      }
+    },
+    "eye_blink": {
+      "eye": "eyeRoot",
+      "open_scale": 1.0,
+      "close_scale": 0.01
+    }
   }
 }
 ```
 
-`tail_chain`：父级为躯干的，用于尾部/飘带的软骨骼链
+### 关键字段说明
 
-`tail_chain_head`：父级为头部的，用于头部附属结构的软骨骼链
+- **`layer` / `form`**：对应数据包中的 Origin 层（通常为 `origins:origin`）与 Origin ID（如 `example_namespace:form_example`）
+- **`hidden`**：隐藏原版玩家模型的对应身体部件
+- **`animation_system` 与 `animation_system_config`**（1.10.0 新版软骨骼与眨眼配置）：
+  - `tail`：父级为躯干的尾巴/飘带软骨骼链
+  - `head_tail`：父级为头部的耳朵/毛发等附属软骨骼链
+  - `wing_l` / `wing_r`：左右翅膀骨骼链
+  - `eye_blink`：眨眼动画配置，在模型 `bipedHead` 下放置名为 `eyeRoot` 的眼部骨骼即可启用自动眨眼
+  - 请确保同一骨骼链中所有骨骼的前缀命名一致（例如 `tail_0`、`tail_1`、`tail_2`）
 
-`wing_chain_l`与`wing_chain_r`：用于翅膀的骨骼链，区分左右
+!!! note
 
-请确保Blockbench中某一骨骼链中所有骨骼的前缀命名保持一致
+    **旧版迁移注意**：1.9.2 及以前使用的顶层 `tail_chain` / `wing_chain_l` / `builtin_controller_data` 在 1.10.0 中**已不再读取**（会静默失效，导致尾巴与翅膀不动）。请务必改用上方的 `animation_system` + `animation_system_config` 格式
 
-## 添加自定义动画
+---
 
-### 特别注意：当前(2026.03.11)，Blockbench 5版本的AzureLib Animator插件的动画导出格式会出现问题，旋转的X轴与Y轴被反向。作为替代，请换用Geckolib插件制作动画，其与AzureLib插件的动画格式一致
+## 二、添加自定义动作动画
 
-mod基于[playerAnimator](https://modrinth.com/mod/playeranimator)的方法来为不同形态实现自定义动画
+1. 在 Blockbench 中安装 **GeckoLib** 插件，参考[已有动画项目](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/3d_models/player_form/0_common/feral_form/animation/form_feral_common_anim.bbmodel)在 `Animate` 标签页中制作帧动画并导出
+2. 将导出的动画 JSON 放入 `assets/<命名空间>/player_animation/`
+3. 在数据包的形态定义 JSON（`ssc_form/*.json`）的 `anim`、`animDefault` 或 `powerAnim` 中绑定对应的动画 ID
 
-要添加自定义动画，您同样需要在Blockbench中安装`AzureLib Animator`插件，并参考[已有动画项目](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/3d_models/player_form/0_common/feral_form/animation/form_feral_common_anim.bbmodel)，在右上角多出的`Animate`标签页中制作帧动画
-
-您的动画json文件应该放置在`assets/example_namespace/player_animation`下
-
-在制作与导出完成后，您还需要在[JSON配置文件](https://ssc-wiki.readthedocs.io/zh-cn/latest/custom_forms/form_definition_json/)中进行注册
-
-
-建议您首先复用模组中已经实现的动画，在没有合适动画时再自行制作
+建议优先复用模组内置的通用动画（如 `shape-shifter-curse:form_feral_common_*`），仅对需要突出形态特色的动作自行制作

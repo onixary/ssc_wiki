@@ -11,7 +11,10 @@ nav:
         - 形态变化效果: mod_content/transform_status_effect.md
         - 形态种类: mod_content/form_types.md
         - 形态能力概述: mod_content/form_ability_overview.md
+        - 子形态: mod_content/sub_forms.md
         - 形态的变化与复原指南: mod_content/form_change_and_recovery.md
+        - 幻形祭坛与催化核心: mod_content/shape_shifter_altar.md
+        - 形态调谐与技能树: mod_content/form_attuner_and_perks.md
         - 形态的专属护甲: mod_content/morphscale_armors.md
         - 形态专属工具与饰品: mod_content/form-specific_tools_and_trinkets.md
         - 可用指令: mod_content/commands.md

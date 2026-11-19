@@ -1,57 +1,58 @@
 # 为自定义形态加入换色功能
 
-为了让你的自定义形态支持颜色配置功能，你需要制作一张colormask贴图，并在`assets/orif-defaults/furs/example_namespace.form_example.json`模型配置文件中进行注册
+为了让你的自定义形态支持游戏内的颜色自定义（以及可视交互调色菜单），你需要制作对应的 `colormask` 贴图，并在 `assets/<命名空间>/ssc_form_model/` 下的模型配置文件中进行注册
 
-## 创建colormask贴图
+## 一、创建 colormask 贴图
 
 ![](../img/form_colormask.png)
 
-colormask贴图以你的形态贴图为基础创建而来。它使用颜色通道标记各个自定义颜色配置的生效区域：
+`colormask` 贴图以形态原贴图为基础绘制，通过 RGBA 通道标记各自定义颜色的生效区域：
 
-|  通道  |  R  |  G   |  B   | A(value = 0) | A(value = 1) |
-|:----:|:---:|:----:|:----:|:------------:|:------------:|
-| 对应区域 | 主要色 | 强调色1 | 强调色2 |    眼睛颜色1     |    眼睛颜色2     |
+| 通道 | R | G | B | A (value = 0) | A (value = 1) |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| 对应区域 | 主要色 | 强调色1 | 强调色2 | 眼睛颜色1 | 眼睛颜色2 |
 
-在颜色配置生效时，颜色的写入顺序为主要色->强调色1->强调色2->眼睛颜色，后者会覆盖前者
+- 颜色覆盖顺序为：**主要色 → 强调色1 → 强调色2 → 眼睛颜色**（后者覆盖前者）
+- 模组在生成自定义颜色贴图时会自动混合原贴图的灰度纹理，因此 `colormask` 仅作区域标注使用，涂成纯色即可
 
-模组会在创建自定义颜色临时贴图时自动混合原有纹理。colormask只做区域标注使用，保持纯色即可
+## 二、在模型配置文件中注册
 
-## 注册OriginFur模型配置文件
+在 `assets/<命名空间>/ssc_form_model/origins.origin.<命名空间>.<origin名>.json` 中，根据你使用的贴图图层添加对应的 `*_mask` 字段：
 
-在colormask完成后，你还需要对其进行注册
+- `texture` → `texture_mask`（基础贴图蒙版）
+- `overlay` → `overlay_mask`（叠加层贴图蒙版）
+- `fullbright_texture` → `fullbright_texture_mask`（自发光贴图蒙版）
+- `emissive_overlay` → `emissive_overlay_mask`（呼吸式全身发光叠加层蒙版）
 
-```
+配置示例：
+
+```json
 {
-  "model": "orif-defaults:geo/form_allay_sp.geo.json",
-  "texture": "orif-defaults:textures/form_allay_sp/form_allay_sp.png",
-  "texture_mask": "orif-defaults:textures/form_allay_sp/form_allay_sp_colormask.png",
-  "overlay": "orif-defaults:textures/form_allay_sp/form_allay_sp_overlay.png",
-  "overlay_mask": "orif-defaults:textures/form_allay_sp/form_allay_sp_overlay_colormask.png",
+  "load_priority": 0,
+  "name": "example_namespace.form_example.model_name",
+  "layer": "origins:origin",
+  "form": "example_namespace:form_example",
+  "wide_only": true,
+
+  "model": "example_namespace:geo/form_example.geo.json",
+  "texture": "example_namespace:textures/form_example.png",
+  "texture_mask": "example_namespace:textures/form_example_colormask.png",
+  "fullbright_texture": "example_namespace:textures/form_example_emission.png",
+  "fullbright_texture_mask": "example_namespace:textures/form_example_emission_colormask.png",
   "hidden": [
-    "leftLeg",
-    "rightLeg",
-    "rightPants",
-    "leftPants",
-    "body",
-    "jacket"
+    "leftLeg", "rightLeg", "rightPants", "leftPants",
+    "body", "jacket"
   ],
-  "tail_chain": {
-    "tail_l": [0],
-    "tail_r": [0]
-  },
-  "wing_chain_l": {
-    "wing_l": [0, 1]
-  },
-  "wing_chain_r": {
-    "wing_r": [0, 1]
-  },
-  "tail_chain_head": {
-    "head_tail_l": [0, 1],
-    "head_tail_r": [0, 1]
+
+  "animation_system": "shape-shifter-curse:default",
+  "animation_system_config": {
+    "tail": {
+      "chain": {
+        "tail": [0, 1, 2, 3]
+      }
+    }
   }
 }
 ```
 
-根据你的贴图类型，在`texture_mask`，`overlay_mask`或`fullbrightTexture_mask`字段注册你的colormask贴图路径
-
-如此一来，换色功能应能在你的自定义形态中生效
+配置完成后重新加载资源包，即可在形态调色菜单中对该形态进行换色

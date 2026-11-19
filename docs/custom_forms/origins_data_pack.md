@@ -1,144 +1,151 @@
 # 添加自定义形态能力
 
-mod使用[Origins](https://modrinth.com/mod/origins)的逻辑来定义不同形态的不同能力。换言之，每个形态都对应着Origins中的一个单独的origin
+模组使用 Apoli / Origins 的体系来定义形态能力——每个形态都对应一个独立的 Origin（放在 `data/<命名空间>/origins/` 下，并在 `data/origins/origin_layers/origin.json` 中注册）
 
-要为自定义形态定义能力，请参考[Origins文档](https://origins.readthedocs.io/en/latest/)
+基础能力语法请参考 [Origins 文档](https://origins.readthedocs.io/en/latest/)
 
-此外，模组额外添加了一些与特有机制有关的power与action可供使用
+!!! note
+
+    **1.10.0 命名空间迁移提示：**
+    - Power / Action / Condition 类型建议统一使用 `apoli:` 前缀（旧的 `origins:` 类型目前仍可兼容，但后续版本计划逐步移除）
+    - 食性、武器与方块等标签（如 `fish`、`meat`、`raw_meat`、`ignore_diet`）已迁移至 **`shape-shifter-curse:`** 命名空间，建议在自定义能力中使用 `shape-shifter-curse:fish` 等新标签
 
 ---
 
-## 挂载在现有形态下的变形触发power
+## 一、为自定义形态添加变形入口
 
-### 变形power的挂载
+为了让玩家在游戏内变身成你的自定义形态，可以通过以下三种方式实现（可组合使用）：
 
-要通过游戏内条件触发变形，你需要首先在`custom_form_pack_example/example_form_datapack/data/example_namespace/origins_power_extra`目录下挂载一个自己的变形power
+### 1. 挂载变形触发 Power（`origins_power_extra`）
 
-```
+在 `data/<命名空间>/origins_power_extra/` 下新建 JSON，可将自定义 Power 挂载到模组已有形态（如开书后的默认形态 `shape-shifter-curse:form_original_shifter`）上：
+
+```json
 {
+  "TargetLayerID": "origins:origin",
   "TargetOriginsID": "shape-shifter-curse:form_original_shifter",
   "ExtraPowers": [
-    "example_namespace:to_example_form"
+    "example_namespace:to_example_form",
+    "example_namespace:to_example_form_by_effect"
   ]
 }
 ```
 
-在上例中，`example_namespace:to_example_form`这一power会挂载到`shape-shifter-curse:form_original_shifter`这一形态下
+随后在 `data/<命名空间>/powers/` 中编写触发逻辑。例如使用 `shape-shifter-curse:transform_to_form` 直接触发变形：
 
-如此一来，你就可以在处于`form_original_shifter`时，触发`to_example_form`这一power中实现的变形效果
-
-若你实现了自己的基础形态，而不是复用模组中的基础形态的话，你可以跳过挂载步骤，直接在自己的基础形态中实现变形power
-
-### 变形power的实现
-
-在JSON中挂载之后，你需要实现自己的变形power
-
-与其他power一致，变形power需要被放置在`custom_form_pack_example/example_form_datapack/data/example_namespace/powers`目录下
-
-你可以在[这里](https://github.com/onixary/shape-shifter-curse-fabric/tree/master/src/main/resources/data/shape-shifter-curse/origins)找到当前的所有形态id
-
-使用`shape-shifter-curse:transform_to_form`action来触发变形逻辑：
-
-```
+```json
 {
-  "type": "origins:action_on_item_use",
+  "type": "apoli:action_on_item_use",
   "entity_action": {
     "type": "shape-shifter-curse:transform_to_form",
     "form_id": "example_namespace:example",
     "instant": true
   },
   "item_condition": {
-    "type": "origins:ingredient",
+    "type": "apoli:ingredient",
     "ingredient": {
-      "tag": "origins:fish"
+      "tag": "shape-shifter-curse:fish"
     }
   }
 }
 ```
 
-以上示例中，当玩家食用任何鱼类时，会触发`shape-shifter-curse:transform_to_form`，将玩家变形为`example_namespace:example`形态
+或者使用 `shape-shifter-curse:give_custom_transform_effect` 给予自定义变形效果（使玩家在下次睡眠时完成变形）：
 
-由于你已经通过注册将power挂载在了`form_original_shifter`形态下，只有在该形态中，这一power才会生效
+```json
+{
+  "type": "apoli:self_action_when_hit",
+  "entity_action": {
+    "type": "shape-shifter-curse:give_custom_transform_effect",
+    "form_id": "example_namespace:example"
+  },
+  "damage_condition": {
+    "type": "apoli:attacker",
+    "entity_condition": {
+      "type": "apoli:in_tag",
+      "tag": "example_namespace:attack_to_example_effect_entity"
+    }
+  }
+}
+```
+
+### 2. 添加自定义形态药水（`dynamic_brewing_recipes`）
+
+在 `data/<命名空间>/dynamic_brewing_recipes/` 下新建 JSON，即可为自定义形态注册酿造台配方：
+
+```json
+{
+  "type": "potion",
+  "input": "shape-shifter-curse:moondust_potion",
+  "ingredient": "minecraft:bone",
+  "output": "shape-shifter-curse:to_custom_statue_potion",
+  "target_form": "example_namespace:example"
+}
+```
+
+### 3. 自定义饰品加成（`accessory_power`）
+
+在 `data/<命名空间>/accessory_power/` 下新建 JSON，可为指定饰品定义在你的自定义形态下新增或移除的 Power（完整示例见仓库的 [accessory_power/example.json](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/custom_form_pack_example/example_form_datapack/data/example_namespace/accessory_power/example.json)）
 
 ---
 
-## 模组特有的power与action：
+## 二、常用模组特有 Power 与 Action
 
-### 本能系统相关
+### 1. 本能系统相关
 
-这些power与action用于与模组的本能系统交互，用于在特定条件下增加或减少本能值
+#### `add_sustained_instinct`（持续增减本能）
 
-#### add_sustained_instinct
-      
-用于持续增加或减少instinct的power
-
-当power的`instinct_effect_id`字段与现有power重复时，则后加载的power会覆盖掉已有的power
-
-以下示例用于实现当玩家处于繁茂洞穴群系中时，以0.003每tick的速度持续增加本能值
+当 `instinct_effect_id` 与已有 Power 重复时，后加载的会覆盖前者。以下示例在繁茂洞穴群系中每 tick 持续增加 0.003 本能值：
 
 ```json
-    {
-      "type": "shape-shifter-curse:add_sustained_instinct",
-      "instinct_effect_id": "FORM_AXOLOTL_BIOME",
-      "value": 0.003,
-      "duration": 1,
-      "condition": {
-        "type": "origins:biome",
-        "biome": "minecraft:lush_caves"
-      }
-    }
+{
+  "type": "shape-shifter-curse:add_sustained_instinct",
+  "instinct_effect_id": "FORM_AXOLOTL_BIOME",
+  "value": 0.003,
+  "duration": 1,
+  "condition": {
+    "type": "apoli:biome",
+    "biome": "minecraft:lush_caves"
+  }
+}
 ```
 
-#### add_instinct
-      
-一次性增加或减少instinct的action
+#### `add_instinct`（一次性增减本能）
 
-以下示例用于实现当玩家每次食用生鱼时，在20tick的时间内，每tick增加0.1的本能值。即在1秒内增加2本能值
+以下示例在玩家食用生鱼时，在 20 tick（1 秒）内每 tick 增加 0.1 本能值（总计 +2）：
 
 ```json
-    {
-      "type": "origins:action_on_item_use",
-      "entity_action": {
-        "type": "shape-shifter-curse:add_instinct",
-        "instinct_effect_id": "FORM_AXOLOTL_EAT_FISH",
-        "value": 0.1,
-        "duration": 20
-      },
-      "item_condition": {
-        "type": "origins:ingredient",
-        "ingredient": {
-          "tag": "origins:fish"
-        }
-      }
+{
+  "type": "apoli:action_on_item_use",
+  "entity_action": {
+    "type": "shape-shifter-curse:add_instinct",
+    "instinct_effect_id": "FORM_AXOLOTL_EAT_FISH",
+    "value": 0.1,
+    "duration": 20
+  },
+  "item_condition": {
+    "type": "apoli:ingredient",
+    "ingredient": {
+      "tag": "shape-shifter-curse:fish"
     }
+  }
+}
 ```
 
-一般而言，对于“阶段变化形态”的0和1阶段，加入[金苹果](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/src/main/resources/data/shape-shifter-curse/powers/form_instinct_use_golden_apple.json)与[催化剂](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/src/main/resources/data/shape-shifter-curse/powers/form_instinct_use_catalyst.json)的相关power是必要的。当然，你也可以随意定义自己的instinct物品
+对于阶段变化形态的`初始阶段`与`第一阶段`，通常建议复用模组内置的 [金苹果](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/src/main/resources/data/shape-shifter-curse/powers/form_instinct_use_golden_apple.json) 与 [催化剂](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/src/main/resources/data/shape-shifter-curse/powers/form_instinct_use_catalyst.json) 本能 Power
 
----
+### 2. 角色缩放（`scale`）
 
-### 角色缩放相关：
-   
-你可以通过`scale`power调整角色的尺寸缩放，这一缩放不会影响到形态的移动速度与跳跃高度等属性
-
-`eye_scale`字段用于定义视角高度的缩放
-   
-每个形态都**必须**包含一个`scale`power，否则可能会在变化形态时出现尺寸错乱的情况
+数据包动态形态需要通过 `shape-shifter-curse:scale` Power 控制实际碰撞箱大小（不会影响移速与跳跃高度），并建议与 `ssc_form/*.json` 中的 `eyeScale` 保持一致：
 
 ```json
 {
   "type": "shape-shifter-curse:scale",
-  "scale": 0.5,
+  "scale": 0.55,
   "eye_scale": 0.6
 }
 ```
 
----
+### 3. 更多自定义 Power 与 Action
 
-### 其他特有的power与action：
-   
-模组中各形态所用到的自定义power、action与condition均在源码的[additional_power](https://github.com/onixary/shape-shifter-curse-fabric/tree/master/src/main/java/net/onixary/shapeShifterCurseFabric/additional_power)目录下，此处不再赘述
-
-请随意参考与复用它们
-
-
+模组新增的各类能力、动作与条件（包括主动技能按键绑定 `key.shape-shifter-curse.active_skill_1`~`_6`）均可在源码的 [additional_power](https://github.com/onixary/shape-shifter-curse-fabric/tree/master/src/main/java/net/onixary/shapeShifterCurseFabric/additional_power) 目录中查阅与复用

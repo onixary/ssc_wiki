@@ -12,6 +12,8 @@
 
 本mod开源免费，你可以在这里找到[Github项目](https://github.com/onixary/shape-shifter-curse-fabric)
 
+想要了解当前已实装与后续规划中的形态，请查看[形态路线图](form_roadmap.md)
+
 !!! note
 
     由于这是一个业余项目，我的精力有限，因此后续开发会倾向于选择在当前版本（1.20.1）的基础上添加更多内容，而不是注重适配新版本

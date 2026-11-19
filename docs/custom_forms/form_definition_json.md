@@ -1,129 +1,114 @@
-# 配置形态定义JSON
+# 配置形态定义 JSON
 
-形态定义JSON文件用于配置自定义形态的动画、形态种类、体型等
+形态定义 JSON 用于声明一个自定义形态的身份、分组与阶段、行为标记、体型与状态动画，存放在：
 
-其需要被存放在`/data/example_namespace/ssc_form`目录下，其名称与您的自定义形态ID相同
+`data/<命名空间>/ssc_form/<形态名>.json`
 
-### 形态定义JSON格式
+该文件支持 `/reload` 热重载。加载后可使用管理员指令 `/shape_shifter_curse set_dynamic_form <玩家> <命名空间>:<形态名>` 进行测试
+
+---
+
+## 完整示例（1.10.0 格式）
 
 ```json
 {
-  "__comment__": "具体看PlayerFormBase | See PlayerFormBase for details",
-  "groupID": "example_namespace:example_group",
-  "__groupID_comment__": "组ID 用于注册组 与数据包结构相对应 | Group ID used for registering groups, corresponding to the datapack structure",
-  "groupIndex": 5,
-  "__groupIndex_comment__": "组内索引 用于变形逻辑 | Index within group used for transformation logic",
-  "phase": "PHASE_SP",
-  "__Phase_comment__": "变形阶段一般和groupIndex一样 Enum:[PHASE_CLEAR, PHASE_0, PHASE_1, PHASE_2, PHASE_3, PHASE_SP] | Transformation phase usually matches groupIndex. Enum:[PHASE_CLEAR, PHASE_0, PHASE_1, PHASE_2, PHASE_3, PHASE_SP]",
+  "group": "example_namespace:example_group",
+  "group_weight": 1,
+  "tier": 1,
+  "fallback": "shape-shifter-curse:allay_sp",
   "bodyType": "FERAL",
-  "__BodyType_comment__": "身体类型 Enum:[NORMAL, FERAL] | Body type. Enum:[NORMAL, FERAL]",
-  "isCustomForm": true,
   "originID": "example_namespace:form_example",
-  "__originID_comment__": "OriginID 与内置的Origin mod联动 与origin_layer的名称相对应 **必须在 data/[NameSpace]/origins 里注册** | OriginID works with the built-in Origin mod, corresponding to the origin layer name. **Must be registered in data/[NameSpace]/origins**",
   "originLayerID": "origins:origin",
-  "__originLayerID_comment__": "OriginLayerID 与内置的OriginFur mod联动 **极度不推荐修改** | OriginLayerID works with OriginFur **Highly not recommended to modify**",
-  "hasSlowFall": false,
-  "overrideHandAnim": false,
-  "canSneakRush": false,
-  "canRushJump": false,
-  "anim": [
-    {
-      "state": "ANIM_IDLE",
-      "animID": "example_namespace:form_example_idle"
-    },
-    {
-      "state": "ANIM_SNEAK_IDLE",
-      "animID": "shape-shifter-curse:form_feral_common_sneak_idle"
-    }
+  "eyeScale": 0.6,
+  "flag": [
+    "no_instinct",
+    "no_cursed_moon_effect",
+    "special_form"
   ],
-  "__anim_comment__": "动画列表 State 在 PlayerAnimState 中定义 | Animation list. State is defined in PlayerAnimState",
-  "animDefault": {
-    "animID": "shape-shifter-curse:form_feral_common_idle",
-    "speed": 1.0,
-    "fade": 2
+  "anim": {
+    "shape-shifter-curse:idle_state": {
+      "controllerType": "shape-shifter-curse:sneak_anim_controller",
+      "anim": { "animID": "example_namespace:form_example_idle" },
+      "sneakAnim": { "animID": "shape-shifter-curse:form_feral_common_sneak_idle" }
+    },
+    "shape-shifter-curse:walk_state": {
+      "controllerType": "shape-shifter-curse:sneak_anim_controller",
+      "anim": { "animID": "shape-shifter-curse:form_feral_common_walk", "speed": 1.2, "fade": 2 },
+      "sneakAnim": { "animID": "shape-shifter-curse:form_feral_common_sneak_walk" }
+    },
+    "shape-shifter-curse:jump_state": {
+      "controllerType": "shape-shifter-curse:one_anim_controller",
+      "anim": { "animID": "shape-shifter-curse:form_feral_common_jump" }
+    }
   },
-  "__animDefault_comment__": "默认动画 如果没有可以不用添加此键 | Default animation. If not present, this key can be omitted"
+  "animDefault": {
+    "controllerType": "shape-shifter-curse:sneak_anim_controller",
+    "anim": { "animID": "example_namespace:form_example_idle" },
+    "sneakAnim": { "animID": "shape-shifter-curse:form_feral_common_sneak_idle" }
+  },
+  "powerAnim": {
+    "shape-shifter-curse:attach_side": {
+      "animID": "shape-shifter-curse:bat_3_attach_side"
+    }
+  },
+  "ExtraPower": [],
+  "RemovedPower": [],
+  "MasterForm": "shape-shifter-curse:feral_cat_sp",
+  "PerkTree": "shape-shifter-curse:empty"
 }
 ```
 
-示例中的comment字段应已经解释了对应字段的含义，以下是对于一些字段的补充说明：
+> 完整的 13 个状态动画配置范例可直接查看仓库中的 [example.json](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/custom_form_pack_example/example_form_datapack/data/example_namespace/ssc_form/example.json)
 
-### groupID
+---
 
-用于标识当前形态处于哪个组内
+## 核心字段说明
 
-只有处于同一个`groupID`下的，并且`groupIndex`与`phase`注册正确的形态才能够按照阶段变化形态的方式正常触发变形逻辑
+### 身份、分组与阶段
 
-例如`bat_0`,`bat_1`,`bat_2`,`bat_3`都应该处于`example_namespace:bat`组中
+| 字段 | 说明 |
+| --- | --- |
+| `FormID` *(可选)* | 手动覆写形态 ID。一般建议省略，默认自动采用 `<命名空间>:<文件名>` |
+| `group` | 形态所属的组 ID（如 `example_namespace:my_wolf`）。同组内的形态才会按阶段相互推进或回退 |
+| `group_weight` | 组内同阶段随机抽取时的权重（通常为 `1`；若不希望被随机选中，如子形态，可设为 `0`） |
+| `tier` | 阶段编号（取代旧版的 `groupIndex` 与 `phase`）。阶段变化形态的`初始 / 第一 / 第二 / 永久阶段`分别对应 `1 / 2 / 3 / 4`，特殊形态一般填 `1` 并配合 `special_form` 标记 |
+| `fallback` | 回退形态 ID。当该数据包被移除或形态不再可用时，系统会自动将玩家安全回退至此形态 |
 
-### groupIndex 与 phase
+### 外观与能力绑定
 
-分别标识组内索引与变形阶段，用于阶段变化形态的变形逻辑
+| 字段 | 说明 |
+| --- | --- |
+| `bodyType` | 身体类型：`NORMAL`（人形）或 `FERAL`（四足）。四足形态建议复用模组内置的 `form_feral_common_*` 动画以节省工作量 |
+| `originID` | 关联的 Origin ID，必须在 `data/<命名空间>/origins/` 及 `origin_layers/origin.json` 中注册 |
+| `originLayerID` | Origin 层 ID，保持默认值 `"origins:origin"` 即可，不推荐修改 |
+| `eyeScale` | 渲染使用的眼睛高度缩放（实际碰撞箱缩放仍需在 Origin 中挂载 `shape-shifter-curse:scale` power） |
+| `ExtraPower` / `RemovedPower` *(可选)* | 直接在形态层额外追加内联 Power，或移除该形态原本挂载的指定 Power ID |
+| `MasterForm` *(可选)* | 指定主形态 ID，用于将该形态注册为对应主形态的**子形态**（可用波纹之镜切换） |
+| `PerkTree` *(可选)* | 为形态绑定指定的技能树 ID（默认无需填写或填 `shape-shifter-curse:empty`） |
 
-两者是一一对应的，其含义与对应关系如下，请参考下表来根据您的想要的自定义形态的阶段来注册对应的groupIndex与phase：
+### 行为标记（`flag`）
 
-| groupIndex: |        -2         |        -1        |      0      |      1      |      2      |         3         |     5      |
-|:-----------:|:-----------------:|:----------------:|:-----------:|:-----------:|:-----------:|:-----------------:|:----------:|
-|   phase:    |    PHASE_CLEAR    |   PHASE_CLEAR    |   PHASE_0   |   PHASE_1   |   PHASE_2   |      PHASE_3      |  PHASE_SP  |
-|    形态阶段：    | 未开启模组内容时的形态，自定义无用 | 变形前的原始形态占位，自定义无用 | 阶段变化形态的第一阶段 | 阶段变化形态的第二阶段 | 阶段变化形态的第三阶段 | 阶段变化形态的第四阶段，即永久阶段 | 可随时恢复的特殊形态 |
+1.10.0 版本使用 `flag` 数组灵活控制形态是否参与本能、诅咒之月与抑制剂逻辑，常用标记如下：
 
-例如：`bat_0`的`groupIndex`应设置为`0`，`phase`应设置为`PHASE_0`
+- `special_form`：标记为特殊形态（触发特殊形态成就与对应规则）
+- `no_instinct`：隐藏本能条、不累积本能（常用于特殊形态与永久形态）
+- `lock_instinct`：锁定本能条显示（常用于第二阶段）
+- `no_cursed_moon_effect` / `no_cursed_moon_tf_target`：不受诅咒之月影响 / 不作为诅咒之月随机变形目标
+- `inhibitor_resist` / `inhibitor_immune`：抵抗普通抑制剂 / 免疫所有非创造抑制剂（常用于永久形态）
+- `initial_form`：标记为初始阶段形态（允许通过食用金苹果退回变身前形态）
 
-groupIndex 4目前没有被使用，它是留给之后的特殊形态的
+---
 
-### bodyType
+## 动画配置（`anim` / `animDefault` / `powerAnim`）
 
-人形为`NORMAL`，四足形态为`FERAL`
+1.10.0 将旧版列表式动画改为按**状态机键（State）**映射**控制器（`controllerType`）**：
 
-这一字段只影响视角高度以及物品的渲染方式。在`FERAL`bodyType下，你需要搭配一套完整的动画才能够实现预期效果。建议复用项目中的已有动画来节省精力
-
-### isCustomForm
-
-设置为`true`。这一字段影响修改形态的命令，为`true`时，其会出现在`set_custom_form`中，而不是`set_form`中
-
-### originID
-
-这一字段需要与origin_layer中的名称相匹配
-
-一个形态需要对应一个origin，用于实现形态能力以及与形态模型相链接
-
-### anim
-
-用于注册不同状态下的动画，其中的`state`字段对应PlayerAnimState中的状态，`animID`字段对应你的命名空间名与导出的动画JSON文件的名称
-
-当前实现的state枚举可在[PlayerAnimState](https://github.com/onixary/shape-shifter-curse-fabric/blob/master/src/main/java/net/onixary/shapeShifterCurseFabric/player_animation/PlayerAnimState.java)中找到。其值与含义列举如下：
-
-| state |         含义         |
-|:-----:|:------------------:|
-| ANIM_IDLE |        站立静止        |
-| ANIM_SNEAK_IDLE |        潜行静止        |
-| ANIM_WALK |         移动         |
-| ANIM_RUN |         疾跑         |
-| ANIM_JUMP |         跳跃         |
-| ANIM_FALL |         坠落         |
-| ANIM_CLIMB_IDLE |        攀爬静止        |
-| ANIM_CLIMB |        攀爬移动        |
-| ANIM_SWIM |        游泳状态        |
-| ANIM_SWIM_IDLE |        水中静止        |
-| ANIM_BOAT_IDLE |        乘船静止        |
-| ANIM_RIDE_IDLE |        骑乘静止        |
-| ANIM_ELYTRA_FLY |        鞘翅飞行        |
-| ANIM_CREATIVE_FLY |       创造模式飞行       |
-| ANIM_CRAWL |        爬行移动        |
-| ANIM_CRAWL_IDLE |        爬行静止        |
-| ANIM_SLOW_FALL |         缓降         |
-| ANIM_ATTACK_ONCE |    攻击一次（点击左键一下）    |
-| ANIM_TOOL_SWING |   挥动工具（长按左键挖掘等）    |
-| ANIM_SNEAK_RUSH |   潜行冲刺（原版用于豹猫形态）   |
-| ANIM_RUSH_JUMP | 冲刺跳跃（原版用于豹猫与美西螈形态） |
-| ANIM_SLEEP |         睡眠         |
-| ANIM_SNEAK_JUMP |      按住潜行时跳跃       |
-| ANIM_SNEAK_FALL |      按住潜行时坠落       |
-| ANIM_SNEAK_ATTACK_ONCE |    按住潜行时攻击一次（点击左键一下）|
-| ANIM_SNEAK_TOOL_SWING | 按住潜行时挥动工具（长按左键挖掘等） |
-
-### animDefault
-
-默认动画。当没有其他动画时，会播放此动画。通常注册为`ANIM_IDLE`状态的动画
-
-对于`FERAL`bodyType而言，如果没有注册此字段，则会在静止时出现直立姿态
+- **`anim`**：键为状态 ID（常用包括 `idle_state`、`walk_state`、`sprint_state`、`jump_state`、`fall_state`、`swim_state`、`climb_state`、`mining_state`、`attack_state`、`ride_state`、`sleep_state`、`fall_flying_state`、`flying_state`，均在 `shape-shifter-curse:` 命名空间下）
+- **常用 `controllerType`**：
+  - `shape-shifter-curse:one_anim_controller`：单一动画（填 `anim`）
+  - `shape-shifter-curse:sneak_anim_controller`：区分站立与潜行（填 `anim` 与 `sneakAnim`）
+  - `shape-shifter-curse:swim_anim_controller`：区分浮水与游泳（填 `anim` 与 `swimAnim`）
+  - `shape-shifter-curse:ride_anim_controller`：区分普通骑乘与载具（填 `anim` 与 `rideVehicleAnim`）
+  - `shape-shifter-curse:use_other_state_anim_controller`：直接复用另一个状态的控制器（填 `StateControllerId`）
+- **`animDefault`**：默认兜底动画。四足形态（`FERAL`）务必配置，否则在未匹配状态时会恢复直立姿态
+- **`powerAnim`** *(可选)*：由特定能力触发的专属覆盖动画（如攀附墙面 `shape-shifter-curse:attach_side` 等）
